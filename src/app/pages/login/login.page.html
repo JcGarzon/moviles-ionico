@@ -1,0 +1,64 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>{{ modoRegistro ? 'Registrarse' : 'Iniciar Sesión' }}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <form (submit)="modoRegistro ? registrar() : login()">
+
+    @if (modoRegistro) {
+      <ion-input
+        [(ngModel)]="name"
+        name="name"
+        label="name"
+        labelPlacement="floating"
+        required>
+      </ion-input>
+    }
+
+    <ion-input
+      [(ngModel)]="email"
+      name="email"
+      label="Email"
+      labelPlacement="floating"
+      required>
+    </ion-input>
+
+    <ion-input
+      [(ngModel)]="password"
+      name="password"
+      label="Contraseña"
+      labelPlacement="floating"
+      type="password"
+      required>
+    </ion-input>
+
+    @if (modoRegistro) {
+      <div class="ion-margin-top">
+        <ion-label>Selecciona el rol:</ion-label>
+        <div class="ion-margin-top ion-text-center">
+          <ion-button
+            [color]="role === 'Common' ? 'primary' : 'medium'"
+            (click)="role = 'Common'">
+            Usuario
+          </ion-button>
+          <ion-button
+            [color]="role === 'Admin' ? 'primary' : 'medium'"
+            (click)="role = 'Admin'">
+            Administrador
+          </ion-button>
+        </div>
+      </div>
+    }
+
+    <ion-button expand="block" type="submit">
+      {{ modoRegistro ? 'Registrarse' : 'Iniciar Sesión' }}
+    </ion-button>
+
+    <ion-button fill="clear" expand="block" (click)="toggleModo()">
+      {{ modoRegistro ? '¿Ya tienes cuenta? Inicia sesión' : '¿No tienes cuenta? Regístrate' }}
+    </ion-button>
+
+  </form>
+</ion-content>
