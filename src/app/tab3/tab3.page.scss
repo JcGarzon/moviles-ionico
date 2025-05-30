@@ -1,0 +1,69 @@
+ion-header {
+  ion-toolbar {
+    --background: rgba(0, 0, 0, 0.1); // Subtle black
+    --color: #DD0000; // Red for text
+    border-bottom: 2px solid rgba(255, 206, 0, 0.3); // Gold accent
+  }
+}
+
+ion-content {
+  --background: #ffffff; // Clean white
+}
+
+ion-card {
+  background: rgba(255, 206, 0, 0.05); // Very light gold
+  border: 1px solid rgba(0, 0, 0, 0.2); // Black border
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 16px;
+
+  ion-card-header {
+    ion-card-title {
+      color: #000000; // Black for titles
+      font-weight: bold;
+    }
+  }
+}
+
+ion-list {
+  ion-item {
+    --background: transparent;
+    --border-color: rgba(221, 0, 0, 0.2); // Red border
+    margin: 8px 0;
+
+    ion-thumbnail {
+      img {
+        border-radius: 8px;
+        border: 1px solid rgba(255, 206, 0, 0.3); // Gold frame
+      }
+    }
+
+    ion-label {
+      h2 {
+        color: #000000; // Black for site names
+      }
+      p {
+        color: #333; // Neutral gray
+      }
+    }
+
+    ion-icon[name="heart"],
+    ion-icon[name="heart-outline"] {
+      color: #DD0000; // Red for heart icons
+    }
+
+    ion-icon[name="checkmark-circle"],
+    ion-icon[name="checkmark-circle-outline"] {
+      color: #FFCE00; // Gold for checkmark icons
+    }
+  }
+}
+
+ion-spinner {
+  color: #000000; // Black spinner
+}
+
+ion-text[color="danger"] {
+  background: rgba(221, 0, 0, 0.1); // Light red for error
+  padding: 8px;
+  border-radius: 4px;
+}
