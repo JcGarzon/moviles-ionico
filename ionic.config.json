@@ -1,0 +1,7 @@
+{
+  "name": "travel-guide",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular-standalone"
+}
