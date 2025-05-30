@@ -1,0 +1,76 @@
+```html
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Registrar Tag</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <ion-header collapse="condense">
+    <ion-toolbar>
+      <ion-title size="large">Registrar Tag</ion-title>
+    </ion-toolbar>
+  </ion-header>
+
+  <!-- Loading Spinner -->
+  <ion-spinner *ngIf="loading" name="crescent" class="ion-margin"></ion-spinner>
+
+  <!-- Error Message -->
+  <ion-text color="danger" *ngIf="error" class="ion-padding">
+    <p>{{ error }}</p>
+  </ion-text>
+
+  <!-- Photo Preview -->
+  <ion-card *ngIf="!loading">
+    <ion-card-header>
+      <ion-card-title>Foto</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <img [src]="photoUrl || 'https://via.placeholder.com/300'" alt="Foto del Tag" class="photo-preview" />
+      <ion-button expand="block" color="primary" (click)="takePhoto()" [disabled]="loading">
+        <ion-icon name="camera" slot="start"></ion-icon>
+        Tomar Foto
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+
+  <!-- Tag Form -->
+  <ion-card *ngIf="!loading">
+    <ion-card-header>
+      <ion-card-title>Agregar Tag</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label>País</ion-label>
+          <ion-select [(ngModel)]="selectedCountryId" (ionChange)="onCountryChange()" placeholder="Selecciona un país">
+            <ion-select-option *ngFor="let country of countries" [value]="country._id">
+              {{ country.name }}
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Sitio</ion-label>
+          <ion-select [(ngModel)]="selectedSiteId" placeholder="Selecciona un sitio" [disabled]="!selectedCountryId">
+            <ion-select-option *ngFor="let site of filteredSites" [value]="site._id">
+              {{ site.name }} ({{ site.cityId.name }})
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Personaje Famoso</ion-label>
+          <ion-select [(ngModel)]="selectedFamousPersonId" placeholder="Selecciona un personaje" [disabled]="!selectedCountryId">
+            <ion-select-option *ngFor="let person of filteredFamousPeople" [value]="person._id">
+              {{ person.name }} ({{ person.cityId.name }})
+            </ion-select-option>
+          </ion-select>
+        </ion-item>
+      </ion-list>
+      <ion-button expand="block" color="success" (click)="submitTag()" [disabled]="!isFormValid() || loading">
+        <ion-icon name="add-circle" slot="start"></ion-icon>
+        Registrar Tag
+      </ion-button>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
+```

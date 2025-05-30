@@ -1,0 +1,72 @@
+ion-header {
+  ion-toolbar {
+    --background: rgba(0, 0, 0, 0.05); // Neutral light gray
+    --color: #333; // Dark text
+    border-bottom: 2px solid rgba(252, 209, 22, 0.3); // Colombia yellow accent
+  }
+}
+
+ion-content {
+  --background: #f9f9f9; // Light neutral background
+}
+
+ion-card {
+  background: #ffffff; // White card
+  border: 1px solid rgba(0, 140, 69, 0.2); // Italy green border
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 16px;
+
+  ion-card-header {
+    ion-card-title {
+      color: #000000; // Germany black for titles
+      font-weight: bold;
+    }
+  }
+}
+
+.photo-preview {
+  width: 100%;
+  max-width: 300px;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid rgba(252, 209, 22, 0.3); // Colombia yellow frame
+  margin-bottom: 16px;
+}
+
+ion-list {
+  ion-item {
+    --background: transparent;
+    --border-color: rgba(205, 33, 42, 0.2); // Italy red border
+    margin: 8px 0;
+
+    ion-label {
+      color: #333; // Neutral text
+    }
+
+    ion-select {
+      color: #003087; // Colombia blue for dropdowns
+    }
+  }
+}
+
+ion-button[color="primary"] {
+  --background: #003087; // Colombia blue
+}
+
+ion-button[color="secondary"] {
+  --background: #008C45; // Italy green
+}
+
+ion-button[color="success"] {
+  --background: #DD0000; // Germany red
+}
+
+ion-spinner {
+  color: #000000; // Germany black
+}
+
+ion-text[color="danger"] {
+  background: rgba(205, 33, 42, 0.1); // Italy red for error
+  padding: 8px;
+  border-radius: 4px;
+}
