@@ -1,13 +1,147 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>tab6</ion-title>
+    <ion-title>Buscar</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">tab6</ion-title>
+      <ion-title size="large">Buscar</ion-title>
     </ion-toolbar>
   </ion-header>
+
+  <!-- Search and Filters -->
+  <ion-searchbar
+    [placeholder]="searchType === 'site' ? 'Buscar sitios o platos...' : 'Buscar personas famosas...'"
+    [(ngModel)]="searchQuery"
+    (ionInput)="onSearchChange()"
+    debounce="300"
+  ></ion-searchbar>
+
+  <ion-item>
+    <ion-label>País</ion-label>
+    <ion-select
+      [(ngModel)]="selectedCountryId"
+      (ionChange)="onCountryChange()"
+      placeholder="Seleccionar país"
+      interface="action-sheet"
+    >
+      <ion-select-option *ngFor="let country of countries" [value]="country._id">
+        {{ country.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="cities.length">
+    <ion-label>Ciudad</ion-label>
+    <ion-select
+      [(ngModel)]="selectedCityId"
+      (ionChange)="onCityChange()"
+      placeholder="Seleccionar ciudad"
+      interface="action-sheet"
+    >
+      <ion-select-option *ngFor="let city of cities" [value]="city._id">
+        {{ city.name }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="selectedCityId">
+    <ion-label>Tipo de búsqueda</ion-label>
+    <ion-select
+      [(ngModel)]="searchType"
+      (ionChange)="onSearchTypeChange()"
+      placeholder="Seleccionar tipo"
+      interface="action-sheet"
+    >
+      <ion-select-option value="site">Sitio</ion-select-option>
+      <ion-select-option value="famousPerson">Persona Famosa</ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <ion-item *ngIf="searchType === 'famousPerson' && categories.length">
+    <ion-label>Categoría</ion-label>
+    <ion-select
+      [(ngModel)]="selectedCategory"
+      (ionChange)="onSearchChange()"
+      placeholder="Seleccionar categoría"
+      interface="action-sheet"
+    >
+      <ion-select-option *ngFor="let category of categories" [value]="category">
+        {{ category }}
+      </ion-select-option>
+    </ion-select>
+  </ion-item>
+
+  <!-- Loading Spinner -->
+  <ion-spinner *ngIf="loading" name="crescent" class="ion-margin"></ion-spinner>
+
+  <!-- Error Message -->
+  <ion-text color="danger" *ngIf="error" class="ion-padding">
+    <p>{{ error }}</p>
+  </ion-text>
+
+  <!-- Sites Section -->
+  <ion-card *ngIf="!loading && searchType === 'site' && filteredSites.length">
+    <ion-card-header>
+      <ion-card-title>Sitios</ion-card-title>
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let site of filteredSites">
+        <ion-thumbnail slot="start">
+          <img [src]="site.imageUrl || 'https://via.placeholder.com/150'" alt="{{ site.name }}" loading="lazy" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ site.name }}</h2>
+          <p>{{ site.type }} - {{ site.description }}</p>
+          <p>Ciudad: {{ site.cityId.name }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <!-- Dishes Section -->
+  <ion-card *ngIf="!loading && searchType === 'site' && filteredDishes.length">
+    <ion-card-header>
+      <ion-card-title>Platos</ion-card-title>
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let dish of filteredDishes">
+        <ion-thumbnail slot="start">
+          <img [src]="dish.imageUrl || 'https://via.placeholder.com/150'" alt="{{ dish.name }}" loading="lazy" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ dish.name }}</h2>
+          <p>{{ dish.description }}</p>
+          <p>Precio: ${{ dish.price | number }}</p>
+          <p>Sitio: {{ dish.siteId.name }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <!-- Famous People Section -->
+  <ion-card *ngIf="!loading && searchType === 'famousPerson' && filteredFamousPeople.length">
+    <ion-card-header>
+      <ion-card-title>Personas Famosas</ion-card-title>
+    </ion-card-header>
+    <ion-list>
+      <ion-item *ngFor="let person of filteredFamousPeople">
+        <ion-thumbnail slot="start">
+          <img [src]="person.imageUrl || 'https://via.placeholder.com/150'" alt="{{ person.name }}" loading="lazy" />
+        </ion-thumbnail>
+        <ion-label>
+          <h2>{{ person.name }}</h2>
+          <p>{{ person.category }} - {{ person.description }}</p>
+          <p>Ciudad: {{ person.cityId.name }}</p>
+        </ion-label>
+      </ion-item>
+    </ion-list>
+  </ion-card>
+
+  <!-- No Results Message -->
+  <ion-text *ngIf="!loading && !error && !filteredSites.length && !filteredDishes.length && !filteredFamousPeople.length" class="ion-padding">
+    <p>No se encontraron resultados.</p>
+  </ion-text>
 </ion-content>
