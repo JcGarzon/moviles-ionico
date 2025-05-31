@@ -82,6 +82,14 @@ export class Tab1Page implements OnInit {
   }
 
   ngOnInit() {
+    // Initial load (optional, kept for compatibility)
+    this.loadFavorites();
+    this.loadVisitedSites();
+    this.fetchColombiaData();
+  }
+
+  ionViewWillEnter() {
+    // Reload data every time the tab is navigated to
     this.loadFavorites();
     this.loadVisitedSites();
     this.fetchColombiaData();

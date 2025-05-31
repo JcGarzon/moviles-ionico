@@ -87,6 +87,12 @@ export class Tab2Page implements OnInit {
     this.fetchItalyData();
   }
 
+  ionViewWillEnter() {
+    this.loadFavorites();
+    this.loadVisitedSites();
+    this.fetchItalyData();
+  }
+
   private loadFavorites() {
     const favorites = localStorage.getItem('favoriteSites');
     this.favoriteSites = favorites ? JSON.parse(favorites) : [];

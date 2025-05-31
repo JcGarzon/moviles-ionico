@@ -88,6 +88,12 @@ export class Tab3Page implements OnInit {
     this.fetchGermanyData();
   }
 
+  ionViewWillEnter() {
+    this.loadFavorites();
+    this.loadVisitedSites();
+    this.fetchGermanyData();
+  }
+
   private loadFavorites() {
     const favorites = localStorage.getItem('favoriteSites');
     this.favoriteSites = favorites ? JSON.parse(favorites) : [];
