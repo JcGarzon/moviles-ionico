@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpClientModule, HttpHeaders } from '@angular/common/http';
-import {  IonHeader, IonToolbar, IonTitle, IonContent, IonSpinner, IonText, IonAccordionGroup, IonAccordion, IonItem, IonLabel, IonList, IonButton, IonIcon, IonThumbnail, ToastController } from '@ionic/angular/standalone';
+import { IonHeader, IonToolbar, IonTitle, IonContent, IonSpinner, IonText, IonAccordionGroup, IonAccordion, IonItem, IonLabel, IonList, IonButton, IonIcon, IonThumbnail, ToastController } from '@ionic/angular/standalone';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { addIcons } from 'ionicons';
@@ -27,6 +27,7 @@ interface FamousPerson {
 
 interface Tag {
   _id: string;
+  userId: { _id: string; email: string }; // Added userId to match endpoint response
   siteId: { _id: string; name: string; imageUrl?: string };
   famousPersonId: { _id: string; name: string };
   tagDate: string;
@@ -38,7 +39,6 @@ interface Tag {
   templateUrl: './tab5.page.html',
   styleUrls: ['./tab5.page.scss'],
   imports: [
-   
     CommonModule,
     FormsModule,
     HttpClientModule,
@@ -111,14 +111,36 @@ export class Tab5Page implements OnInit {
 
   private async fetchTags() {
     try {
+      const userId = this.getUserIdFromToken();
+      if (!userId) {
+        this.error = 'No se pudo obtener el ID del usuario';
+        this.tags = [];
+        await this.showToast('No se pudo obtener el ID del usuario', 'danger');
+        return;
+      }
+
       this.tags = await this.http
-        .get<Tag[]>(`${this.apiUrl}/tags`, { headers: this.getHeaders() })
+        .get<Tag[]>(`${this.apiUrl}/tags/by-user/${userId}`, { headers: this.getHeaders() })
         .toPromise() || [];
+      console.log('User tags:', JSON.stringify(this.tags, null, 2)); // Debug: verify tags data
     } catch (err: any) {
-      this.error = err.message || 'Error loading tags';
-      console.error(err);
+      this.error = err.message || 'Error al cargar los tags';
+      console.error('Fetch tags error:', err);
+      await this.showToast('Error al cargar los tags', 'danger');
     } finally {
       this.loading = false;
+    }
+  }
+
+  private getUserIdFromToken(): string | null {
+    const token = localStorage.getItem('token');
+    if (!token) return null;
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      return payload.userId || null;
+    } catch (e) {
+      console.error('Error decoding JWT:', e);
+      return null;
     }
   }
 
