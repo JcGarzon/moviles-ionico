@@ -1,13 +1,68 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
-    <ion-title>tab5</ion-title>
+    <ion-title>Favoritos y Tags</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">tab5</ion-title>
-    </ion-toolbar>
-  </ion-header>
+  <!-- Loading Spinner -->
+  <ion-spinner *ngIf="loading" name="crescent" class="ion-margin"></ion-spinner>
+
+  <!-- Error Message -->
+  <ion-text color="danger" *ngIf="error" class="ion-padding">
+    <p>{{ error }}</p>
+  </ion-text>
+
+  <!-- Accordions -->
+  <ion-accordion-group *ngIf="!loading">
+    <!-- Favorites Accordion -->
+    <ion-accordion value="favorites">
+      <ion-item slot="header" color="light">
+        <ion-label>Favoritos</ion-label>
+      </ion-item>
+      <div slot="content">
+        <ion-list *ngIf="favoriteSites.length > 0">
+          <ion-item *ngFor="let site of favoriteSites">
+            <ion-thumbnail slot="start">
+              <img [src]="site.imageUrl || placeholderImage" alt="{{ site.name }}" />
+            </ion-thumbnail>
+            <ion-label>
+              <h2>{{ site.name }}</h2>
+              <p>{{ site.cityId?.name }}</p>
+            </ion-label>
+            <ion-button slot="end" fill="clear" (click)="toggleFavorite(site)">
+              <ion-icon name="{{ isFavorite(site._id) ? 'heart' : 'heart-outline' }}" color="primary"></ion-icon>
+            </ion-button>
+          </ion-item>
+        </ion-list>
+        <ion-text class="ion-padding" *ngIf="favoriteSites.length === 0">
+          <p>No tienes sitios favoritos.</p>
+        </ion-text>
+      </div>
+    </ion-accordion>
+
+    <!-- Tags Accordion -->
+    <ion-accordion value="tags">
+      <ion-item slot="header" color="light">
+        <ion-label>Tags</ion-label>
+      </ion-item>
+      <div slot="content">
+        <ion-list *ngIf="tags.length > 0">
+          <ion-item *ngFor="let tag of tags">
+            <ion-thumbnail slot="start">
+              <img [src]="tag.siteId?.imageUrl || placeholderImage" alt="{{ tag.siteId?.name }}" />
+            </ion-thumbnail>
+            <ion-label>
+              <h2>{{ tag.siteId?.name }} con {{ tag.famousPersonId?.name }}</h2>
+              <p>{{ tag.tagDate | date: 'short' }}</p>
+              <p>Lat: {{ tag.location?.latitude | number: '1.4-4' }}, Lon: {{ tag.location?.longitude | number: '1.4-4' }}</p>
+            </ion-label>
+          </ion-item>
+        </ion-list>
+        <ion-text class="ion-padding" *ngIf="tags.length === 0">
+          <p>No has registrado tags.</p>
+        </ion-text>
+      </div>
+    </ion-accordion>
+  </ion-accordion-group>
 </ion-content>

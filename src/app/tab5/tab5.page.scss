@@ -1,0 +1,74 @@
+ion-header {
+  ion-toolbar {
+    --background: rgba(0, 0, 0, 0.05); // Neutral light gray
+    --color: #333; // Dark text
+    border-bottom: 2px solid rgba(252, 209, 22, 0.3); // Colombia yellow accent
+  }
+}
+
+ion-content {
+  --background: #f9f9f9; // Light neutral background
+}
+
+ion-accordion-group {
+  margin: 16px;
+
+  ion-accordion {
+    ion-item {
+      --background: #ffffff; // White header
+      --color: #000000; // Germany black text
+      border: 1px solid rgba(0, 140, 69, 0.2); // Italy green border
+    }
+
+    div[slot="content"] {
+      background: #ffffff;
+      border: 1px solid rgba(0, 140, 69, 0.2);
+      border-top: none;
+    }
+  }
+}
+
+ion-list {
+  ion-item {
+    --border-color: rgba(205, 33, 42, 0.2); // Italy red border
+    align-items: center;
+
+    ion-thumbnail {
+      --size: 50px;
+      --border-radius: 8px;
+      margin-right: 16px;
+
+      img {
+        border: 2px solid rgba(252, 209, 22, 0.5); // Colombia yellow border
+        border-radius: 8px;
+        object-fit: cover;
+      }
+    }
+
+    ion-label {
+      h2 {
+        color: #003087; // Colombia blue
+        font-weight: bold;
+        margin-bottom: 4px;
+      }
+      p {
+        color: #333; // Neutral text
+        margin: 2px 0;
+      }
+    }
+  }
+}
+
+ion-button {
+  --color: #003087; // Colombia blue for heart icon
+}
+
+ion-text[color="danger"] {
+  background: rgba(205, 33, 42, 0.1); // Italy red for error
+  padding: 8px;
+  border-radius: 4px;
+}
+
+ion-spinner {
+  color: #000000; // Germany black
+}
