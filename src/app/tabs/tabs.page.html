@@ -35,5 +35,9 @@
       <ion-label>Taguea</ion-label>
       
     </ion-tab-button>
+    <ion-tab-button tab="tab8" *ngIf="isAdmin">
+      <ion-icon name="add-circle"></ion-icon>
+      <ion-label>Admin Sitios</ion-label>
+    </ion-tab-button>
   </ion-tab-bar>
 </ion-tabs>

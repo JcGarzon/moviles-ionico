@@ -1,0 +1,57 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>Agregar Sitio</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+  <!-- Non-Admin Message -->
+  <ion-text *ngIf="!isAdmin" class="ion-padding">
+    <p>Esta funcionalidad está disponible solo para administradores.</p>
+  </ion-text>
+
+  <!-- Admin Form -->
+  <div *ngIf="isAdmin">
+    <!-- Loading Spinner -->
+    <ion-spinner *ngIf="loading" name="crescent" class="ion-margin"></ion-spinner>
+
+    <!-- Error Message -->
+    <ion-text color="danger" *ngIf="error" class="ion-padding">
+      <p>{{ error }}</p>
+    </ion-text>
+
+    <!-- Form -->
+    <ion-card *ngIf="!loading">
+      <ion-card-header>
+        <ion-card-title>Crear Nuevo Sitio</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-item>
+          <ion-label position="floating">Nombre</ion-label>
+          <ion-input [(ngModel)]="siteForm.name" placeholder="Ej. Museo del Oro"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Ciudad</ion-label>
+          <ion-select [(ngModel)]="siteForm.cityId" placeholder="Selecciona una ciudad">
+            <ion-select-option *ngFor="let city of cities" [value]="city._id">{{ city.name }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label>Tipo</ion-label>
+          <ion-select [(ngModel)]="siteForm.type" placeholder="Selecciona un tipo">
+            <ion-select-option *ngFor="let type of siteTypes" [value]="type">{{ type }}</ion-select-option>
+          </ion-select>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">Descripción</ion-label>
+          <ion-textarea [(ngModel)]="siteForm.description" placeholder="Descripción del sitio"></ion-textarea>
+        </ion-item>
+        <ion-item>
+          <ion-label position="floating">URL de Imagen</ion-label>
+          <ion-input [(ngModel)]="siteForm.imageUrl" placeholder="Ej. https://example.com/image.jpg"></ion-input>
+        </ion-item>
+        <ion-button expand="block" (click)="submitSite()" [disabled]="loading">Guardar Sitio</ion-button>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

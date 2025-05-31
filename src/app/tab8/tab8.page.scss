@@ -1,0 +1,31 @@
+ion-card {
+  margin: 16px;
+  border: 1px solid rgba(0, 140, 69, 0.2); // Italy green border
+  background: #ffffff;
+
+  ion-card-title {
+    color: #003087; // Colombia blue
+    font-weight: bold;
+  }
+}
+
+ion-item {
+  --border-color: rgba(205, 33, 42, 0.2); // Italy red border
+  --color: #000000; // Germany black text
+}
+
+ion-button {
+  --background: #003087; // Colombia blue
+  --color: #ffffff;
+  margin-top: 16px;
+}
+
+ion-text[color="danger"] {
+  background: rgba(205, 33, 42, 0.1); // Italy red for error
+  padding: 8px;
+  border-radius: 4px;
+}
+
+ion-spinner {
+  color: #000000; // Germany black
+}

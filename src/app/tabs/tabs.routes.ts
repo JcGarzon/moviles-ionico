@@ -21,11 +21,7 @@ export const routes: Routes = [
         loadComponent: () =>
           import('../tab3/tab3.page').then((m) => m.Tab3Page),
       },
-      {
-        path: 'tab3',
-        loadComponent: () =>
-          import('../tab3/tab3.page').then((m) => m.Tab3Page),
-      },
+      
       {
         path: 'tab4',
         loadComponent: () =>
@@ -45,6 +41,11 @@ export const routes: Routes = [
         path: 'tab7',
         loadComponent: () =>
           import('../tab7/tab7.page').then((m) => m.Tab7Page),
+      },
+      {
+        path: 'tab8',
+        loadComponent: () =>
+          import('../tab8/tab8.page').then((m) => m.Tab8Page),
       },
       {
         path: '',
